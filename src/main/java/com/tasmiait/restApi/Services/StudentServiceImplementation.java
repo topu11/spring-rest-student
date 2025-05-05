@@ -13,13 +13,13 @@ import java.util.Optional;
 @Service
 public class StudentServiceImplementation {
     @Autowired
-    private StudentRepository studnetRepository;
+    private StudentRepository studentRepository;
     @Transactional
     public Student addStudent(Student student)
     {
         try {
 
-            return studnetRepository.save(student);
+            return studentRepository.save(student);
 
 
         } catch (Exception e) {
@@ -29,7 +29,7 @@ public class StudentServiceImplementation {
     }
 
     public Student findByRollno(int rollno) {
-        Optional<Student> optional = studnetRepository.findByRollno(rollno);
+        Optional<Student> optional = studentRepository.findByRollno(rollno);
         //System.out.println(optional);
         if (optional.isPresent()) {
             return optional.get();
@@ -39,12 +39,29 @@ public class StudentServiceImplementation {
 
     public List<Student> allStudent()
     {
-         return  studnetRepository.findAll();
+         return  studentRepository.findAll();
     }
     public List<Student> findByDepartment(String  department)
     {
-        return studnetRepository.findByDepartment(department);
+        return studentRepository.findByDepartment(department);
 
     }
+    public Student updataStudent(Student student,long id)
+    {
+        Optional<Student> optional = studentRepository.findById(id);
+        //System.out.println(optional);
+        if (optional.isPresent()) {
+            Student existingStudent = optional.get();
 
+            // Update fields explicitly
+            existingStudent.setName((student.getName()));
+            existingStudent.setDepartment(student.getDepartment());
+            existingStudent.setMarks(student.getMarks());
+            // Add any other fields you want to update
+
+            Student savedStudent = studentRepository.save(existingStudent);
+            return savedStudent;
+        }
+        return null;
+    }
 }

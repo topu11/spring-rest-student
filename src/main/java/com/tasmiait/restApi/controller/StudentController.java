@@ -81,6 +81,29 @@ public class StudentController {
 
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updataStudent(@PathVariable("id") long id,@RequestBody Student student) {
+
+        Student savedStudent = studentServiceImplementation.updataStudent(student,id);
+        Map<String, Object> studentReturnData = new LinkedHashMap<>();
+
+        if (savedStudent != null) {
+
+
+            studentReturnData.put("success", true); // Set success flag
+            studentReturnData.put("message", "Student updated Successfully");
+            studentReturnData.put("data", savedStudent);
+
+            // Return 201 Created if the student was inserted, else 409 Conflict
+            return ResponseEntity.status(HttpStatus.CREATED).body(studentReturnData);
+
+        } else {
+            studentReturnData.put("success", false);
+            studentReturnData.put("message", "studen not found");
+            studentReturnData.put("data", null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentReturnData); // 400 Bad Request
+        }
+    }
 
 
 }

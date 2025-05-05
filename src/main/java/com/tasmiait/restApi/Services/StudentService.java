@@ -12,4 +12,5 @@ public interface StudentService {
     public Optional<Student> findByRollno(int rollno);
     public List<Student> allStudent();
     public List<Student> findByDepartment(String  department);
+    public Optional<Student> updataStudent(Student studnet,int rollno);
 }
