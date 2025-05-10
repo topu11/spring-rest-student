@@ -13,4 +13,7 @@ public interface StudentService {
     public List<Student> allStudent();
     public List<Student> findByDepartment(String  department);
     public Optional<Student> updataStudent(Student studnet,int rollno);
+    public List<Student> findByMarksBetween(float low, float high);
+    public List<Student> searchByNameAndDepartment(String name, String department);
+    public boolean DeleteByID(long id);
 }

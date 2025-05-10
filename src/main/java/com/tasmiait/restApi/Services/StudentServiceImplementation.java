@@ -64,4 +64,23 @@ public class StudentServiceImplementation {
         }
         return null;
     }
+    public List<Student> findByMarksBetween(float low, float high)
+    {
+        return studentRepository.findByMarksBetween(low,high);
+    }
+    public List<Student> searchByNameAndDepartment(String name, String department)
+    {
+        return studentRepository.searchByNameAndDepartment(name,department);
+    }
+    public boolean DeleteByID(long id)
+    {
+        Optional<Student> optional = studentRepository.findById(id);
+        //System.out.println(optional);
+        if (optional.isPresent()) {
+            Student existingStudent = optional.get();
+            studentRepository.delete(existingStudent);
+            return true;
+        }
+        return false;
+    }
 }
