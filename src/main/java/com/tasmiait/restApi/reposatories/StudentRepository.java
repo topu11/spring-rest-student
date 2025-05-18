@@ -14,6 +14,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Optional<Student> findByRollno(int rollno);
     List<Student> findByDepartment(String  department);
     List<Student> findByMarksBetween(float low, float high);
+    List<Student> findByNameAndDepartment(String name, String department);
     @Query("SELECT s FROM Student s WHERE " +
             "(:name IS NULL OR LOWER(s.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
             "(:department IS NULL OR LOWER(s.department) LIKE LOWER(CONCAT('%', :department, '%')))")

@@ -83,4 +83,8 @@ public class StudentServiceImplementation {
         }
         return false;
     }
+    public List<Student> findByNameAndDepartment(String name, String department)
+    {
+        return studentRepository.findByNameAndDepartment(name, department);
+    }
 }

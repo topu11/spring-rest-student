@@ -16,4 +16,5 @@ public interface StudentService {
     public List<Student> findByMarksBetween(float low, float high);
     public List<Student> searchByNameAndDepartment(String name, String department);
     public boolean DeleteByID(long id);
+    public List<Student> findByNameAndDepartment(String name, String department);
 }

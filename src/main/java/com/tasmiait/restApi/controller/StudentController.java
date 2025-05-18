@@ -119,8 +119,21 @@ public class StudentController {
     }
 
     @GetMapping("/searchby/name/department")
-    public ResponseEntity<?> getStudentsByMarksRange(@RequestParam String name, @RequestParam String department) {
+    public ResponseEntity<?> getStudentsSearchByNameDepartment(@RequestParam(required = false)  String name, @RequestParam(required = false)  String department) {
         List<Student> students=studentServiceImplementation.searchByNameAndDepartment(name, department);
+        Map<String,Object> finalMapp=new LinkedHashMap<>();
+
+        Map<String,Object> studnetResultMapp=new LinkedHashMap<>();
+        studnetResultMapp.put("total",students.size());
+        studnetResultMapp.put("students",students);
+        finalMapp.put("success",true);
+        finalMapp.put("data",studnetResultMapp);
+        return ResponseEntity.status(HttpStatus.OK).body(finalMapp);
+    }
+    @PostMapping("/findby/name/department")
+    public ResponseEntity<?> getStudentFindByNameDepartment(@RequestParam String name, @RequestParam String department)
+    {
+        List<Student> students=studentServiceImplementation.findByNameAndDepartment(name, department);
         Map<String,Object> finalMapp=new LinkedHashMap<>();
 
         Map<String,Object> studnetResultMapp=new LinkedHashMap<>();
