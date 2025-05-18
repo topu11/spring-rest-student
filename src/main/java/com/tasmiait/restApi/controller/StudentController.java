@@ -17,6 +17,30 @@ import java.util.Map;
 public class StudentController {
     @Autowired
     private StudentServiceImplementation studentServiceImplementation;
+
+    @PostMapping("/add/multiple")
+    public ResponseEntity<?> addMultipleStudent(@RequestBody List<Student> importstudents) {
+
+        for(Student eachStudent : importstudents)
+        {
+            Student student=studentServiceImplementation.findByRollno(eachStudent.getRollno());
+            if(student !=null)
+            {
+                continue;
+            }
+            studentServiceImplementation.addStudent(eachStudent);
+        }
+
+        List<Student> students=studentServiceImplementation.allStudent();
+        Map<String,Object> finalMapp=new LinkedHashMap<>();
+
+        Map<String,Object> studnetResultMapp=new LinkedHashMap<>();
+        studnetResultMapp.put("total",students.size());
+        studnetResultMapp.put("students",students);
+        finalMapp.put("success",true);
+        finalMapp.put("data",studnetResultMapp);
+        return ResponseEntity.status(HttpStatus.OK).body(finalMapp);
+    }
     @PostMapping("/add")
     public ResponseEntity<?> addStudent(@RequestBody Student student) {
 
